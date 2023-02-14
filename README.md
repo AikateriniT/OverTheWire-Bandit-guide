@@ -90,4 +90,53 @@ Open a new session with same host name and port. U: bandit7 and password the one
 
     grep 'millionth' data.txt
     
+______________________________________________________________________________________________
 
+-- Level 8 --
+
+For the next level we must think what is asked in order to figure out which command suits best. The uniq is the command that we should use. 
+
+Uniq is a command that filters input and writes to the output. Specifically, it filters based on identical lines. It has a flag -u, which filters for unique lines (lines that appear only ones). Another interesting functionality is, for example, that it can also count (-c) or only return duplicate lines (-d).
+
+In order to figure out with uniq which the one and only line from the file we have to sort it first. 
+
+    sort data.txt | uniq -u
+    
+And we get the password
+
+_______________________________________________________________________________________________
+
+-- Level 9 --
+
+The requirements for the next password is that it is one of the few human-readable strings, preceded by several '=' characters. In order to distinguish human-readable strings in data.txt we use the command 'string'. Then we will use 'grep' command same as we did for the 6th level. We have to guess how many equal signs are to these lines. So, I will try:
+
+    strings data.txt | grep =
+The result is not the best since I get two different passwords
+![bandit9](https://user-images.githubusercontent.com/113516460/218878150-0b2e3cbf-6a71-4b69-8f0a-17e2e244d97f.JPG)
+
+So lets try with 3 ===
+
+    strings data.txt | grep ===
+
+And it is more clear what the password is.
+___________________________________________________________________________________________
+
+-- Level 10 --
+The password for the next level is stored in the file data.txt, which contains base64 encoded data. I had to do a bit research about base64 encoded data. After a while I figured out that Base64 is a binary-to-text encoding scheme. It can be recognized by equal signs at the end of the data. However in linux the command base64 allows for encoding and decoding in Base64. 
+
+First we have to open the file
+
+        cat data.txt
+        
+ And then we have to decode it by using the flag -d.
+ 
+        base64 -d data.txt
+_____________________________________________________________________________________________
+
+-- Level 11 -- 
+
+The password for the next level is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions.
+
+
+
+    
